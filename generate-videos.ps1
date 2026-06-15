@@ -1,35 +1,41 @@
 <#
 .SYNOPSIS
-    Builds (or updates) videos.json from the video files in a folder.
+    Builds (or updates) videos.json from the clips in the "video" folder.
 
 .DESCRIPTION
-    Scans a folder for video files and writes a videos.json the player can read.
+    Workflow for a new project:
+      1. Copy this whole folder.
+      2. Drop your clips into the "video" subfolder.
+      3. Run this script (right-click > Run with PowerShell, or .\generate-videos.ps1).
+      4. Upload everything to the server.
+
     Re-running is safe: entries whose "src" already exists in videos.json keep
-    their existing name and category, so any manual tweaks you've made are
-    preserved. Only newly-found files are added.
+    their existing name and category, so manual tweaks are preserved. Files no
+    longer in the folder are dropped, and newly-added files are appended.
 
 .PARAMETER Path
-    Folder to scan for videos. Defaults to the folder the script lives in.
+    Project root (where videos.json is written). Defaults to this script's folder.
+
+.PARAMETER VideoDir
+    Name of the subfolder that holds the clips. Defaults to "video".
 
 .PARAMETER Output
     Where to write the JSON. Defaults to "<Path>\videos.json".
 
 .EXAMPLE
     .\generate-videos.ps1
-    Scans the current project folder and writes videos.json.
-
-.EXAMPLE
-    .\generate-videos.ps1 -Path "D:\Projects\NewClips"
-    Generates videos.json for a different project's clips.
+    Scans .\video and writes .\videos.json.
 #>
 [CmdletBinding()]
 param(
     [string]$Path = $PSScriptRoot,
+    [string]$VideoDir = 'video',
     [string]$Output
 )
 
 if (-not $Path) { $Path = (Get-Location).Path }
 if (-not $Output) { $Output = Join-Path $Path 'videos.json' }
+$videoPath = Join-Path $Path $VideoDir
 
 $extensions = @('.mp4', '.webm', '.mov', '.m4v')
 
@@ -39,7 +45,7 @@ function Get-PrettyName([string]$baseName) {
     $n = $n -replace '^mofm_', ''                                  # drop series prefix
     $n = $n -replace '(?i)_(is|are)_my_superpower$', ''            # drop superpower suffix
     $n = $n -replace '[_\-]+', ' '                                 # underscores/dashes -> spaces
-    $n = $n -creplace '(?<=[a-z0-9])(?=[A-Z])', ' '                # split camelCase (case-sensitive)
+    $n = $n -creplace '(?<=[a-z0-9])(?=[A-Z])', ' '               # split camelCase (case-sensitive)
     $n = ($n -replace '\s+', ' ').Trim()                           # collapse spaces
     if (-not $n) { return $baseName }
     $ti = (Get-Culture).TextInfo
@@ -51,6 +57,13 @@ function Get-Category([string]$baseName) {
     if ($baseName -match '(?i)superpower') { return 'Superpowers' }
     if ($baseName -match '^(?i)mofm_')     { return 'Magic of Me' }
     return 'Stories'
+}
+
+# --- Make sure the video folder exists --------------------------------------
+if (-not (Test-Path $videoPath)) {
+    Write-Warning "No '$VideoDir' folder found at '$videoPath'. Creating it - drop your clips in there and run this again."
+    New-Item -ItemType Directory -Path $videoPath | Out-Null
+    return
 }
 
 # --- Load existing videos.json so we can preserve manual edits --------------
@@ -71,16 +84,17 @@ if (Test-Path $Output) {
     }
 }
 
-# --- Scan the folder for videos ---------------------------------------------
-$files = Get-ChildItem -Path $Path -File |
+# --- Scan the video folder for clips ----------------------------------------
+$files = Get-ChildItem -Path $videoPath -File |
     Where-Object { $extensions -contains $_.Extension.ToLower() }
 
 if (-not $files) {
-    Write-Warning "No video files ($($extensions -join ', ')) found in '$Path'."
+    Write-Warning "No video files ($($extensions -join ', ')) found in '$videoPath'."
     return
 }
 
-$foundSrcs = $files | ForEach-Object { $_.Name }
+# src is stored web-style: "video/Filename.mp4"
+$foundSrcs = $files | ForEach-Object { "$VideoDir/$($_.Name)" }
 
 # Keep previously-known files in their original order, then append new ones (A-Z).
 $ordered = @()
@@ -105,4 +119,4 @@ if ($entries.Count -le 1) { $json = "[$json]" }
 $newCount = ($ordered | Where-Object { -not $existing.ContainsKey($_) }).Count
 $keptCount = $entries.Count - $newCount
 Write-Host "Wrote $($entries.Count) entries to $Output. New: $newCount  Preserved: $keptCount" -ForegroundColor Green
-Write-Host "Review the new names and categories, then commit videos.json." -ForegroundColor DarkGray
+Write-Host "Review the new names and categories, then upload the folder." -ForegroundColor DarkGray

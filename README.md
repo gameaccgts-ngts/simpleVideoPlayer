@@ -1,71 +1,69 @@
-# Simple Video Player — IPD Book Readings
+# Simple Video Player
 
-A lightweight, dependency-free video player for "Builder Bob Story Time" book
-readings. The story list is driven entirely by a JSON file, so adding or removing
-videos never requires touching the code.
+A lightweight, dependency-free web video player. The playlist is driven entirely
+by a JSON file, so adding or removing videos never requires touching the code —
+and this whole folder works as a **reusable starter kit** for new projects.
 
 ## Features
 
 - 🔎 **Searchable playlist** with live filtering
-- 🏷️ **Category chips** (Superpowers · Magic of Me · Stories) with group headings
-- ▶️ **Click to play** — autoplays the selected story
+- 🏷️ **Category chips** with group headings
+- ▶️ **Click to play** — autoplays the selected video
 - ⏮️ **Prev / Next** buttons and **← / →** keyboard shortcuts
-- ↪️ **Auto-advance** to the next story when one ends
+- ↪️ **Auto-advance** to the next video when one ends
 - ⬇️ **Download button** to save the current clip
 - 💾 **Remembers your last video** via `localStorage`
 - ⚠️ **Graceful errors** when a file is missing or can't load
 - 📱 Responsive layout (two-panel on desktop, single column on mobile)
 
-## Files
+## Use it for a new project (the fast path)
 
-| File           | Purpose                                            |
-| -------------- | -------------------------------------------------- |
-| `index.html`   | Page markup                                        |
-| `style.css`    | Styling / theme                                    |
-| `scriptsv.js`  | Player logic (loads `videos.json`)                 |
-| `videos.json`  | **The story list — edit this to manage videos**    |
-| `generate-videos.ps1` | Auto-builds `videos.json` from a folder of clips |
+1. **Copy this whole folder.**
+2. **Drop your clips** into the `video/` subfolder (`.mp4 / .webm / .mov / .m4v`).
+3. **Run the generator** — right-click `generate-videos.ps1` → *Run with
+   PowerShell*, or from a terminal in the folder:
+   ```powershell
+   .\generate-videos.ps1
+   ```
+4. **Tweak** the new names/categories in `videos.json` if you like, set the
+   `<h1>`/`<p>` title in `index.html`, then **upload the whole folder** to your
+   server.
 
-The `.mp4` files and `poster.png` are **not** stored in this repo; they live on
-the hosting server alongside these files.
+That's it — no hand-editing of file lists.
 
-## Adding or editing videos
+## Folder layout
 
-Edit `videos.json`. Each entry has three fields:
+| Path                  | Purpose                                              |
+| --------------------- | ---------------------------------------------------- |
+| `index.html`          | Page markup (edit the title here)                    |
+| `style.css`           | Styling / theme                                      |
+| `scriptsv.js`         | Player logic (loads `videos.json`)                   |
+| `videos.json`         | The playlist (generated; safe to hand-edit too)      |
+| `generate-videos.ps1` | Builds `videos.json` from the `video/` folder        |
+| `video/`              | **Put your clips here**                              |
+| `poster.png`          | Optional placeholder shown before a video loads      |
 
-```json
-{ "name": "Kindness", "src": "KindnessSuperpower.mp4", "category": "Superpowers" }
-```
+## How the generator works
 
-- `name` — label shown in the playlist
-- `src` — the video file name (must match the file on the server)
-- `category` — used for grouping and the filter chips (any value works; new
-  categories appear as chips automatically)
-
-## Generating `videos.json` automatically
-
-Instead of typing entries by hand, drop the script next to your clips and run it:
-
-```powershell
-# scan the current folder and write videos.json
-.\generate-videos.ps1
-
-# or point it at another project's clips
-.\generate-videos.ps1 -Path "D:\Projects\NewClips"
-```
-
-It scans for `.mp4 / .webm / .mov / .m4v` files and, for each one:
+For each clip in `video/`, it:
 
 - turns the file name into a friendly title (`my_cool_VideoFile.mp4` → "My Cool
   Video File", splitting `camelCase`, underscores, and dashes)
 - guesses a category (`*superpower*` → Superpowers, `mofm_*` → Magic of Me,
   everything else → Stories)
+- stores the path web-style as `video/<file>`
 
-**Re-running is safe.** Any entry whose `src` already exists in `videos.json`
-keeps its current name and category, so your manual edits survive — only new
-files get added. Review the new entries, tweak as needed, then commit.
+**Re-running is safe.** Entries whose `src` already exists in `videos.json` keep
+their current name and category, so manual tweaks survive. Files removed from the
+folder are dropped; newly-added files are appended.
 
-## Running it
+`videos.json` entries look like:
+
+```json
+{ "name": "Kindness", "src": "video/KindnessSuperpower.mp4", "category": "Superpowers" }
+```
+
+## Testing locally
 
 Browsers block `fetch()` on `file://` URLs, so `videos.json` won't load if you
 just double-click `index.html`. Serve the folder over HTTP instead:
@@ -75,9 +73,6 @@ just double-click `index.html`. Serve the folder over HTTP instead:
 python -m http.server 8000
 # then open http://localhost:8000
 ```
-
-When deployed to the web server, place the `.mp4` files and `poster.png` in the
-same directory as `index.html`.
 
 > Tip: after uploading new videos, do a hard refresh (Ctrl/Cmd + Shift + R) to
 > clear the cached `videos.json`.

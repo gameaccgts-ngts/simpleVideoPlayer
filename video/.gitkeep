@@ -1,0 +1,3 @@
+# Drop your video clips (.mp4 / .webm / .mov / .m4v) in this folder,
+# then run generate-videos.ps1 in the project root to build videos.json.
+# This file just keeps the empty folder in git — you can leave it here.
