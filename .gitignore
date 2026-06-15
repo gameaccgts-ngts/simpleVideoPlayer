@@ -12,6 +12,9 @@ poster.png
 .vscode/
 .idea/
 
+# Local scratch / test output
+_test/
+
 # OS junk
 Thumbs.db
 Desktop.ini

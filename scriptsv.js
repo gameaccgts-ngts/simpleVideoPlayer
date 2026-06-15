@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const nowTitleEl = document.getElementById('now-title');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
+    const downloadBtn = document.getElementById('download-btn');
     const emptyState = document.getElementById('empty-state');
     const errorState = document.getElementById('error-state');
 
@@ -94,6 +95,11 @@ document.addEventListener('DOMContentLoaded', function () {
         emptyState.hidden = true;
         errorState.hidden = true;
         video.hidden = false;
+
+        // Offer the clip as a download (filename = the friendly story name)
+        downloadBtn.href = src;
+        downloadBtn.setAttribute('download', meta.name + '.mp4');
+        downloadBtn.hidden = false;
 
         localStorage.setItem(STORAGE_KEY, src);
         updateNavButtons();

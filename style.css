@@ -145,6 +145,15 @@ body {
 .ctrl-btn:hover:not(:disabled) { background: var(--accent-2); transform: translateY(-1px); }
 .ctrl-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+/* Download is an <a> styled as a button */
+a.ctrl-btn { text-decoration: none; display: inline-flex; align-items: center; }
+.ctrl-download {
+    background: linear-gradient(140deg, var(--accent), #ffd089);
+    color: #1a1330;
+    border-color: transparent;
+}
+.ctrl-download:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
 .hint { color: var(--muted); font-size: 0.85rem; margin: 16px 2px 2px; }
 .hint kbd {
     background: var(--panel-2);
