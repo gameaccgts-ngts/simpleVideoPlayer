@@ -1,0 +1,18 @@
+# Media lives on the server, not in the repo
+*.mp4
+*.webm
+*.mov
+*.m4v
+
+# Poster image is provided on the server
+poster.png
+
+# Editor / tooling
+.claude/
+.vscode/
+.idea/
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPD Builder Bob Story Time</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="app-header">
+            <div class="brand">
+                <span class="brand-mark" aria-hidden="true">📚</span>
+                <div class="brand-text">
+                    <h1>IPD Book Readings</h1>
+                    <p>Builder Bob Story Time</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="layout">
+            <!-- Player -->
+            <section class="stage" aria-label="Video player">
+                <div class="video-shell">
+                    <video id="video" controls preload="metadata" poster="poster.png" playsinline></video>
+                    <div id="empty-state" class="empty-state">
+                        <span class="empty-icon" aria-hidden="true">▶</span>
+                        <p>Pick a story from the list to start watching</p>
+                    </div>
+                    <div id="error-state" class="error-state" hidden>
+                        <span class="empty-icon" aria-hidden="true">⚠️</span>
+                        <p>This video couldn't be loaded. Try a hard refresh (Ctrl/Cmd + Shift + R) to clear the cache.</p>
+                    </div>
+                </div>
+
+                <div class="now-playing">
+                    <div class="np-info">
+                        <span class="np-label">Now playing</span>
+                        <h2 id="now-title">Nothing selected yet</h2>
+                    </div>
+                    <div class="np-controls">
+                        <button id="prev-btn" class="ctrl-btn" type="button" title="Previous (←)" disabled>‹ Prev</button>
+                        <button id="next-btn" class="ctrl-btn" type="button" title="Next (→)" disabled>Next ›</button>
+                    </div>
+                </div>
+
+                <p class="hint">Tip: use <kbd>←</kbd> / <kbd>→</kbd> to move between stories. Your last video is remembered automatically.</p>
+            </section>
+
+            <!-- Playlist -->
+            <aside class="playlist" aria-label="Story list">
+                <div class="search-wrap">
+                    <input id="search" type="search" placeholder="Search stories…" autocomplete="off" aria-label="Search stories">
+                    <span id="count" class="count">0</span>
+                </div>
+                <div class="filters" id="filters" role="tablist" aria-label="Categories"></div>
+                <ul id="playlist" class="playlist-items"></ul>
+                <p id="no-results" class="no-results" hidden>No stories match your search.</p>
+            </aside>
+        </main>
+    </div>
+
+    <script src="scriptsv.js"></script>
+</body>
+</html>
