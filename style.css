@@ -98,7 +98,10 @@ body {
     text-align: center;
     padding: 24px;
     color: var(--muted);
+    pointer-events: none; /* never block the video controls underneath */
 }
+/* Make the [hidden] attribute actually win over display:flex above */
+.empty-state[hidden], .error-state[hidden] { display: none; }
 .empty-icon {
     font-size: 30px;
     width: 70px; height: 70px;
