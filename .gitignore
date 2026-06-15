@@ -4,9 +4,6 @@
 *.mov
 *.m4v
 
-# Poster image is provided on the server
-poster.png
-
 # Editor / tooling
 .claude/
 .vscode/

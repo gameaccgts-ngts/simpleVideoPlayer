@@ -1,38 +1,22 @@
 [
-    { "name": "Kindness",        "src": "video/KindnessSuperpower.mp4",             "category": "Superpowers" },
-    { "name": "Patience",        "src": "video/IPD_Patience_is_my_superpower.mp4", "category": "Superpowers" },
-    { "name": "Honesty",         "src": "video/Honesty_is_my_superpower.mp4",      "category": "Superpowers" },
-    { "name": "Acceptance",      "src": "video/Acceptance_is_my_superpower.mp4",   "category": "Superpowers" },
-    { "name": "Confidence",      "src": "video/Confidence_is_my_superpower.mp4",   "category": "Superpowers" },
-    { "name": "Positivity",      "src": "video/Positivity_is_my_superpower.mp4",   "category": "Superpowers" },
-    { "name": "Breathing",       "src": "video/Breathing_is_my_superpower.mp4",    "category": "Superpowers" },
-    { "name": "Choices",         "src": "video/Choices_are_my_superpower.mp4",     "category": "Superpowers" },
-    { "name": "Love",            "src": "video/Love_is_my_superpower.mp4",         "category": "Superpowers" },
-    { "name": "Gratitude",       "src": "video/Gratitude_is_my_superpower.mp4",    "category": "Superpowers" },
-
-    { "name": "Choices",  "src": "video/mofm_Choices.mp4",  "category": "Magic of Me" },
-    { "name": "Feelings", "src": "video/mofm_feelings.mp4", "category": "Magic of Me" },
-    { "name": "Food",     "src": "video/mofm_Foods.mp4",    "category": "Magic of Me" },
-    { "name": "Words",    "src": "video/mofm_words.mp4",    "category": "Magic of Me" },
-    { "name": "Moods",    "src": "video/mofm_moods.mp4",    "category": "Magic of Me" },
-    { "name": "Dreams",   "src": "video/mofm_Dreams.mp4",   "category": "Magic of Me" },
-    { "name": "Gifts",    "src": "video/mofm_Gifts.mp4",    "category": "Magic of Me" },
-
-    { "name": "I Can Enjoy Reading",                   "src": "video/IcanEnjoyReading.mp4",         "category": "Stories" },
-    { "name": "Find Your Calm",                        "src": "video/FindYourCalm.mp4",             "category": "Stories" },
-    { "name": "Amaya's Anger",                         "src": "video/Amayas_Anger.mp4",             "category": "Stories" },
-    { "name": "Sometimes I Need",                      "src": "video/Sometimes_I_Need.mp4",         "category": "Stories" },
-    { "name": "Friend I Need",                         "src": "video/Friend_I_Need.mp4",            "category": "Stories" },
-    { "name": "Finding Joy",                           "src": "video/FindingJoy.mp4",               "category": "Stories" },
-    { "name": "Santiago's Sadness",                    "src": "video/Santiagos_Sadness.mp4",        "category": "Stories" },
-    { "name": "Dinosaur Day",                          "src": "video/DinoDay.mp4",                  "category": "Stories" },
-    { "name": "Curious Why",                           "src": "video/CuriousWhy.mp4",               "category": "Stories" },
-    { "name": "Pig In Jeans",                          "src": "video/PigInJeans.mp4",               "category": "Stories" },
-    { "name": "Unicorn Slime Rescue",                  "src": "video/UnicornSlimeRescue.mp4",       "category": "Stories" },
-    { "name": "Mermaid Day",                           "src": "video/MermaidDay.mp4",               "category": "Stories" },
-    { "name": "Someday Maybe",                         "src": "video/SomedayMaybe.mp4",             "category": "Stories" },
-    { "name": "The Boy Who Made a Million Mistakes",   "src": "video/BoyWhoMadeMillionMistakes.mp4","category": "Stories" },
-    { "name": "Just Add Glitter",                      "src": "video/JustAddGlitter.mp4",           "category": "Stories" },
-    { "name": "Ned the Knitting Pirate",               "src": "video/NedtheKnittingPirate.mp4",     "category": "Stories" },
-    { "name": "The Girl Who Makes a Million Mistakes", "src": "video/GirlMillion.mp4",              "category": "Stories" }
+    {
+        "name":  "Amazing Wethead",
+        "src":  "video/Amazing_Wethead.mp4",
+        "category":  "Stories"
+    },
+    {
+        "name":  "Nia",
+        "src":  "video/Nia.mp4",
+        "category":  "Stories"
+    },
+    {
+        "name":  "We Cant Do It",
+        "src":  "video/We Cant Do it.mp4",
+        "category":  "Stories"
+    },
+    {
+        "name":  "When I\u0027m Angry",
+        "src":  "video/When I\u0027m Angry.mp4",
+        "category":  "Stories"
+    }
 ]
